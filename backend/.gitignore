@@ -1,0 +1,19 @@
+node_modules
+
+# Keep environment variables out of version control
+.env
+
+# Generated Prisma client
+/src/generated/prisma
+
+# SQLite databases and journal files
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Auto-generated GraphQL schema (built by type-graphql)
+src/schema.gql
+
+# Build output
+dist/
