@@ -3,6 +3,7 @@ import { expressMiddleware } from "@as-integrations/express5";
 import express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
+import { buildContext } from "./graphql/context/index.js";
 import { AuthResolver } from "./resolvers/auth.resolver";
 import { UserResolver } from "./resolvers/user.resolver";
 
@@ -24,7 +25,12 @@ async function bootstrap() {
   app.use(
     "/graphql",
     express.json(),
-    expressMiddleware(server)
+    expressMiddleware(server, {
+      context: async (args) => {
+        const ctx = await buildContext(args)
+        return ctx
+      }
+    })
   )
 
   app.listen({
