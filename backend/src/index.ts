@@ -4,14 +4,15 @@ import express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { buildContext } from "./graphql/context/index.js";
-import { AuthResolver } from "./resolvers/auth.resolver";
-import { UserResolver } from "./resolvers/user.resolver";
+import { AuthResolver } from "./resolvers/auth.resolver.js";
+import { IdeaResolver } from "./resolvers/idea.resolver.js";
+import { UserResolver } from "./resolvers/user.resolver.js";
 
 async function bootstrap() {
   const app = express();
 
   const schema = await buildSchema({
-    resolvers: [AuthResolver, UserResolver],
+    resolvers: [AuthResolver, UserResolver, IdeaResolver],
     validate: false,
     emitSchemaFile: "./src/schema.gql"
   })

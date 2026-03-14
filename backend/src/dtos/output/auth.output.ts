@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "type-graphql";
-import { UserModel } from "../../models/user.model"; // Update this path to match your actual file structure
+import { UserModel } from "../../models/user.model.js"; // Update this path to match your actual file structure
 
 @ObjectType() // This is a decorator from type-graphql that marks this class as a GraphQL input type. It allows us to define the shape of the data that will be sent to the server when performing mutations or queries that require input.
 export class RegisterOutput {

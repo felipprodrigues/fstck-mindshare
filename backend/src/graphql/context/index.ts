@@ -1,5 +1,5 @@
 import { ExpressContextFunctionArgument } from "@as-integrations/express5";
-import { verifyJwt } from "../../utils/jwt.js";
+import { JwtPayload, verifyJwt } from "../../utils/jwt.js";
 
 export type GraphqlContext = {
   user: string | undefined;
@@ -19,17 +19,17 @@ export const buildContext = async ({
   if(authHeader?.startsWith("Bearer ")) {
     token = authHeader.substring("Bearer ".length)
     try {
-      const payload = verifyJwt(token)
+      const payload = verifyJwt(token) as JwtPayload
       user = payload.id
     } catch (error) {
       console.error("Error verifying token:", error)
     }
+  }
 
-    return {
-      user,
-      token,
-      req,
-      res
-    }
+  return {
+    user,
+    token,
+    req,
+    res
   }
 }
