@@ -16,6 +16,16 @@ export class IdeaService {
     return prismaClient.idea.findMany()
   }
 
+  async findIdeaById(id: string) {
+    const idea = await prismaClient.idea.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!idea) throw new Error("Idea not found");
+    return idea;
+  }
+
   async updateIdea(id: string, data: UpdateIdeaInput) {
     const idea = await prismaClient.idea.findUnique({
       where: {
@@ -54,5 +64,4 @@ export class IdeaService {
 
     return true;
   }
-
 }
