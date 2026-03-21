@@ -2,20 +2,12 @@
   "compilerOptions": {
     "rootDirs": ["src"],
     "outDir": "dist",
-
-    "target": "ES2023",
-    "lib": ["ES2023"],
-
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-
-    "strict": true,
+    "lib": ["es2023", "dom"],
+    "target": "es2023",
+    "module": "esnext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-
     "types": ["node"],
-
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   }

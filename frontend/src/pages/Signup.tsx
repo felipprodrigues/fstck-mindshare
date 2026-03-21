@@ -3,54 +3,57 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useAuthStore } from "@/stores/auth"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-// import { useAuthStore } from "@/stores/auth"
-// import { toast } from "sonner"
+import { toast } from "sonner"
 
 export function Signup() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [loading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  // const signup = useAuthStore((state) => state.signup)
+  const signup = useAuthStore((state) => state.signup)
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault()
-  //   setLoading(true)
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
 
-  //   try {
-  //     const signupMutate = await signup({
-  //       name,
-  //       email,
-  //       password,
-  //     })
-  //     if (signupMutate) {
-  //       toast.success("Cadastro realizado com sucesso!")
-  //     }
-  //   } catch (error: any) {
-  //     toast.error("Erro ao realizar o cadastro")
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
+    console.log({ name, email, password })
+    try {
+      const signupMutate = await signup({
+        name,
+        email,
+        password,
+      })
+
+      if (signupMutate) {
+        toast.success("Account created successfully!")
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error("Error creating account")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className="flex items-center min-h-[calc(100vh-4rem)] justify-center flex-col gap-6">
       <img src={logo} className="w-64 h-22" />
       <Card className="w-full max-w-md rounded-xl">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Crie sua conta</CardTitle>
-          <CardDescription>Informe seu nome, e-email e senha de acesso</CardDescription>
+          <CardTitle className="text-2xl font-bold">Create your account</CardTitle>
+          <CardDescription>Enter your name, email and password</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={() => {}} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Nome</Label>
+              <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
-                placeholder="Seu nome"
+                placeholder="Your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -79,19 +82,19 @@ export function Signup() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              Cadastrar
+              Sign up
             </Button>
           </form>
         </CardContent>
       </Card>
       <Card className="w-full max-w-md rounded-xl">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Já tem uma conta?</CardTitle>
-          <CardDescription>Entre agora mesmo</CardDescription>
+          <CardTitle className="text-2xl font-bold">Already have an account?</CardTitle>
+          <CardDescription>Sign in now</CardDescription>
         </CardHeader>
         <CardContent>
           <Button variant="outline" className="w-full" asChild>
-            <Link to="/login">Acessar conta</Link>
+            <Link to="/login">Sign in</Link>
           </Button>
         </CardContent>
       </Card>
