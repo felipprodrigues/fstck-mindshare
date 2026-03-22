@@ -6,7 +6,7 @@ interface AvatarComponentProps {
 }
 
 export const AvatarComponent = ({ userName, isDrawer = false }: AvatarComponentProps) => (
-  <Avatar className={isDrawer ? "h-8 w-8 flex-shrink-0" : ""}>
+  <Avatar className={`flex-shrink-0 ${isDrawer ? "h-8 w-8" : "h-12 w-12"}`}>
     <AvatarFallback
       className={isDrawer ? "bg-blue-600 text-white" : "bg-zinc-950 text-primary-foreground"}
     >

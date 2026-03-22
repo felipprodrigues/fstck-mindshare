@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { Layout } from "./components/Layout"
 import { IdeasPage } from "./pages/Ideas"
 import { Login } from "./pages/Login"
+import { Members } from "./pages/Members"
 import { Signup } from "./pages/Signup"
 import { useAuthStore } from "./stores/auth"
 
@@ -40,6 +41,14 @@ function App() {
           element={
             <ProtectedRoute>
               <IdeasPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/members"
+          element={
+            <ProtectedRoute>
+              <Members />
             </ProtectedRoute>
           }
         />

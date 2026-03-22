@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { Idea } from "@/types"
+import { formatDate } from "@/utils/formatter"
 import { MessageSquare, ThumbsUp } from "lucide-react"
 
 interface IdeaCardProps {
@@ -43,7 +44,7 @@ export function IdeaCard({ idea, onClick }: IdeaCardProps) {
               <span>{idea.countVotes || 0}</span>
             </div>
           </div>
-          <span className="text-sm text-muted-foreground">{idea.createdAt}</span>
+          <span className="text-sm text-muted-foreground">{formatDate(idea.createdAt)}</span>
         </div>
       </CardContent>
     </Card>
