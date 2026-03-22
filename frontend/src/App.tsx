@@ -1,15 +1,48 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { Layout } from "./component/Layout"
+import { Layout } from "./components/Layout"
+import { IdeasPage } from "./pages/Ideas"
 import { Login } from "./pages/Login"
 import { Signup } from "./pages/Signup"
+import { useAuthStore } from "./stores/auth"
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuthStore()
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />
+}
+
+function PublicRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuthStore()
+  return !isAuthenticated ? <>{children}</> : <Navigate to="/" replace />
+}
 
 function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <IdeasPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Layout>
   )

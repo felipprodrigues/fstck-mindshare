@@ -1,7 +1,7 @@
-import { apolloClient } from "@/lib/apollo"
+import { apolloClient } from "@/lib/grapqhl/apollo"
 import { LOGIN } from "@/lib/grapqhl/mutations/Login"
 import { REGISTER } from "@/lib/grapqhl/mutations/Register"
-import { LoginInput, RegisterInput, User } from "@/types/auth"
+import { LoginInput, RegisterInput, User } from "@/types"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
@@ -27,6 +27,7 @@ interface AuthState {
   user: User | null
   signup: (data: RegisterInput) => Promise<boolean>
   login: (data: LoginInput) => Promise<boolean>
+  logout: () => void
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -112,6 +113,15 @@ export const useAuthStore = create<AuthState>()(
           console.log("Error authenticating user")
           throw error
         }
+      },
+
+      logout: () => {
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+        })
+        localStorage.clearStore()
       },
     }),
     { name: "auth-storage" }
