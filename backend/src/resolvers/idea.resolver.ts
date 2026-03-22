@@ -42,6 +42,11 @@ export class IdeaResolver {
     return this.ideaService.listIdeas();
   }
 
+  @Query(() => IdeaModel)
+  async getIdea(@Arg('id', () => String) id: string): Promise<IdeaModel> {
+    return this.ideaService.findIdeaById(id)
+  }
+
   @Mutation(() => Boolean)
   async deleteIdea(
     @Arg('id', () => String) id: string
